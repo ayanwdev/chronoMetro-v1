@@ -30,12 +30,12 @@ export default function RootLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: "#2B7FFF",
-        headerStyle: {
-          backgroundColor: "#25292e",
-        },
         headerShadowVisible: false,
         headerTintColor: "#ffffff",
         tabBarStyle: {
+          backgroundColor: "#25292e",
+        },
+        headerStyle: {
           backgroundColor: "#25292e",
         },
       }}
@@ -55,35 +55,6 @@ export default function RootLayout() {
           }}
         />
       ))}
-      {/* <Tabs.Screen
-        name="home"
-        options={{
-          title: "Home",
-          headerTitle: HeaderTitle,
-          headerTitleAlign: "center",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon name="time-sharp" focused={focused} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="stats"
-        options={{
-          title: "Statistics",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon name="stats-chart-sharp" focused={focused} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: "Settings",
-          tabBarIcon: ({ focused }) => (
-            <TabIcon name="settings-sharp" focused={focused} />
-          ),
-        }}
-      /> */}
     </Tabs>
   );
 }

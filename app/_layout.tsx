@@ -11,7 +11,7 @@ import "react-native-reanimated";
 import "./global.css";
 
 import { useColorScheme } from "@/hooks/use-color-scheme";
-import { account } from "@/lib/appwrite";
+import { account } from "@/lib/appwrite/client";
 
 SplashScreen.preventAutoHideAsync();
 

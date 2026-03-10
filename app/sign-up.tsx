@@ -1,4 +1,4 @@
-import { account, ID } from "@/lib/appwrite";
+import { account, ID } from "@/lib/appwrite/client";
 import { router } from "expo-router";
 import { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
