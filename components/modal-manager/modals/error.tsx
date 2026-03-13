@@ -3,16 +3,16 @@ import { Modal, Pressable, Text, View } from "react-native";
 
 type Props = {
   text?: string;
+  closeText?: string;
   modalState: boolean;
   setModalState: React.Dispatch<React.SetStateAction<boolean>>;
-  confirmAction: () => void;
 };
 
-const ConfirmModal = ({
-  text = "Confirm action[s]?",
+const ErrorModal = ({
+  text = "Error!",
+  closeText = "CLOSE",
   modalState,
   setModalState,
-  confirmAction,
 }: Props) => {
   return (
     <Modal
@@ -27,26 +27,19 @@ const ConfirmModal = ({
           setModalState(false);
         }}
       ></Pressable>
-      <View className="h-1/5 bg-gray-900 p-4">
+      <View className="h-1/5 bg-red-600 p-4">
         <View>
-          <Text className="text-3xl text-red-500">{text}</Text>
+          <Text className="text-3xl text-gray-50">{text}</Text>
         </View>
         <View>
           <View className="flex-row justify-end gap-4 mt-4">
             <Pressable
-              className="px-4 py-2 bg-gray-700 rounded"
-              onPress={() => setModalState(false)}
-            >
-              <Text className="text-white font-bold">Cancel</Text>
-            </Pressable>
-            <Pressable
               className="px-4 py-2 bg-red-600 rounded"
               onPress={() => {
-                confirmAction();
                 setModalState(false);
               }}
             >
-              <Text className="text-white font-bold">Confirm</Text>
+              <Text className="text-gray-50 font-bold">{closeText}</Text>
             </Pressable>
           </View>
         </View>
@@ -55,4 +48,4 @@ const ConfirmModal = ({
   );
 };
 
-export default ConfirmModal;
+export default ErrorModal;

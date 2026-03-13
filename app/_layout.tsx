@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import "react-native-reanimated";
 import "./global.css";
 
+import ModalRenderer from "@/components/modal-manager/modal-renderer";
 import { useColorScheme } from "@/hooks/use-color-scheme";
 import { account } from "@/lib/appwrite/client";
 
@@ -20,7 +21,6 @@ export default function RootLayout() {
   const [checkedAuth, setCheckedAuth] = useState(false);
   const rootNav = useRootNavigationState();
 
-  // 1️⃣ Check auth (no routing here)
   useEffect(() => {
     async function checkAuth() {
       try {
@@ -38,7 +38,6 @@ export default function RootLayout() {
     }
   }, [rootNav]);
 
-  // 2️⃣ Hide splash AFTER navigation tree exists
   useEffect(() => {
     if (checkedAuth && rootNav?.key) {
       SplashScreen.hideAsync();
@@ -54,6 +53,7 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)/home" />
       </Stack>
       <StatusBar style="auto" />
+      <ModalRenderer />
     </ThemeProvider>
   );
 }
