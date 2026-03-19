@@ -17,7 +17,9 @@ export default function SignUp() {
 
   return (
     <View className="flex-1 justify-center bg-neutral-950 px-6">
-      <Text className="text-white text-2xl font-semibold mb-6">Sign Up</Text>
+      <Text className="text-white text-2xl font-semibold mb-6">
+        {"Sign Up"}
+      </Text>
 
       <TextInput
         className="bg-neutral-900 text-white p-3 rounded-lg mb-3"
@@ -50,13 +52,13 @@ export default function SignUp() {
         onPress={handleSignUp}
       >
         <Text className="text-white text-center font-medium">
-          Create Account
+          {"Create Account"}
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => router.navigate("/sign-in")}>
         <Text className="text-blue-400 text-center">
-          Already have an account?
+          {"Already have an account?"}
         </Text>
       </TouchableOpacity>
     </View>

@@ -1,18 +1,19 @@
 import { AppwriteUser } from "@/lib/appwrite/AppwriteUser";
+import { useUserManager } from "@/lib/db/userManager";
 import { AppwriteSkillType } from "@/types/AppwriteSkill";
+import { LocalUser } from "@/types/LocalUser";
 import { useEffect, useState } from "react";
 import { Button, Text, TextInput, View } from "react-native";
-import { ID, Models } from "react-native-appwrite";
+import { ID } from "react-native-appwrite";
 
 export default function Settings() {
-  const [user, setUser] = useState<Models.User<Models.Preferences> | null>(
-    null,
-  );
+  const [user, setUser] = useState<LocalUser | null>(null);
   const [skillName, setSkillName] = useState("");
   const [creating, setCreating] = useState(false);
+  const { getUserInfo } = useUserManager();
 
   useEffect(() => {
-    AppwriteUser.getUser().then(setUser);
+    getUserInfo().then(setUser);
   }, []);
 
   const createSkill = async () => {
@@ -40,10 +41,13 @@ export default function Settings() {
     <View className="flex p-10">
       <View className="bg-red-400">
         <Text className="text-white text-xl">
-          User: {user?.name || "Loading..."}
+          {"UID: "} {user?.id || "Loading..."}
         </Text>
         <Text className="text-white text-xl">
-          Email: {user?.email || "Loading..."}
+          {"Name: "} {user?.name || "Loading..."}
+        </Text>
+        <Text className="text-white text-xl">
+          {"Email: "} {user?.email || "Loading..."}
         </Text>
       </View>
 

@@ -2,9 +2,11 @@ import ModalTester from "@/components/modal-manager/modal-tester";
 import { ThemedText } from "@/components/themed-text";
 import TimerContainer from "@/components/timer/timer-container";
 import { AppwriteUser } from "@/lib/appwrite/AppwriteUser";
+import { account } from "@/lib/appwrite/client";
+import { useUserManager } from "@/lib/db/userManager";
 import { useModalManager } from "@/lib/modalManager";
 import { AppwriteSkill, AppwriteSkillType } from "@/types/AppwriteSkill";
-import { useFocusEffect } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import Animated, { BounceInLeft } from "react-native-reanimated";
@@ -13,6 +15,8 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 export default function Home() {
   const [skills, setSkills] = useState<AppwriteSkill[]>([]);
   const modal = useModalManager();
+
+  const { deleteUserInfo } = useUserManager();
 
   useFocusEffect(
     useCallback(() => {
@@ -60,6 +64,15 @@ export default function Home() {
             </Animated.View>
           ))}
         </View>
+        <Pressable
+          onPress={async () => {
+            await account.deleteSession({ sessionId: "current" });
+            await deleteUserInfo();
+            router.replace("/");
+          }}
+        >
+          <Text className="text-white text-2xl underline">{"[Sign Out]"}</Text>
+        </Pressable>
       </SafeAreaView>
     </SafeAreaProvider>
   );
