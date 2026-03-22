@@ -1,20 +1,18 @@
 import { useModalManager } from "@/lib/modalManager";
 import React from "react";
-import { Pressable, Text } from "react-native";
+import { Pressable, Text, View } from "react-native";
 
 const ModalTester = () => {
   const modal = useModalManager();
   return (
-    <>
+    <View className="w-full px-10 flex-row justify-center flex-wrap gap-2">
       <Pressable
         onPress={() => {
           modal.show("success");
         }}
         className="bg-green-600"
       >
-        <Text className="underline text-center text-white">
-          {"Show success modal"}
-        </Text>
+        <Text className="underline text-center text-white">{"Success"}</Text>
       </Pressable>
       <Pressable
         onPress={() => {
@@ -22,9 +20,7 @@ const ModalTester = () => {
         }}
         className="bg-yellow-600"
       >
-        <Text className="underline text-center text-white">
-          {"Show confirm modal"}
-        </Text>
+        <Text className="underline text-center text-white">{"Confirm"}</Text>
       </Pressable>
       <Pressable
         onPress={() => {
@@ -32,9 +28,7 @@ const ModalTester = () => {
         }}
         className="bg-blue-600"
       >
-        <Text className="underline text-center text-white">
-          {"Show info modal"}
-        </Text>
+        <Text className="underline text-center text-white">{"Info"}</Text>
       </Pressable>
       <Pressable
         onPress={() => {
@@ -42,9 +36,7 @@ const ModalTester = () => {
         }}
         className="bg-red-600"
       >
-        <Text className="underline text-center text-white">
-          {"Show error modal"}
-        </Text>
+        <Text className="underline text-center text-white">{"Error"}</Text>
       </Pressable>
       <Pressable
         onPress={() => {
@@ -52,11 +44,9 @@ const ModalTester = () => {
         }}
         className="bg-blue-600"
       >
-        <Text className="underline text-center text-white">
-          {"Show loading modal"}
-        </Text>
+        <Text className="underline text-center text-white">{"Loading"}</Text>
       </Pressable>
-    </>
+    </View>
   );
 };
 

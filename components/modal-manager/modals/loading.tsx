@@ -38,7 +38,7 @@ const LoadingModal = ({
     }
 
     return () => cancelAnimation(rotation);
-  }, [modalState]);
+  }, [modalState, rotation]);
 
   const spinStyle = useAnimatedStyle(() => ({
     transform: [{ rotate: `${rotation.value}deg` }],

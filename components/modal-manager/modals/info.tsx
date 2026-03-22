@@ -22,7 +22,7 @@ const InfoModal = ({ text = "Info: ", modalState, setModalState }: Props) => {
     }).start(() => {
       setModalState(false);
     });
-  }, [modalState]);
+  }, [modalState, progress, setModalState]);
 
   const width = progress.interpolate({
     inputRange: [0, 1],

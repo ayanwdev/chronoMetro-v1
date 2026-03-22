@@ -26,7 +26,7 @@ const SuccessModal = ({
     }).start(() => {
       setModalState(false);
     });
-  }, [modalState]);
+  }, [modalState, progress, setModalState]);
 
   const width = progress.interpolate({
     inputRange: [0, 1],

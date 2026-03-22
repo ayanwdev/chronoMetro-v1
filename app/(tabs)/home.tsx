@@ -1,12 +1,10 @@
 import ModalTester from "@/components/modal-manager/modal-tester";
 import { ThemedText } from "@/components/themed-text";
 import TimerContainer from "@/components/timer/timer-container";
-import { AppwriteUser } from "@/lib/appwrite/AppwriteUser";
-import { account } from "@/lib/appwrite/client";
-import { useUserManager } from "@/lib/db/userManager";
+import { useAccount } from "@/hooks/use-account";
 import { useModalManager } from "@/lib/modalManager";
 import { AppwriteSkill, AppwriteSkillType } from "@/types/AppwriteSkill";
-import { router, useFocusEffect } from "expo-router";
+import { useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import Animated, { BounceInLeft } from "react-native-reanimated";
@@ -15,22 +13,19 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 export default function Home() {
   const [skills, setSkills] = useState<AppwriteSkill[]>([]);
   const modal = useModalManager();
-
-  const { deleteUserInfo } = useUserManager();
+  const { listSkills, deleteSkill, signOut } = useAccount();
 
   useFocusEffect(
     useCallback(() => {
-      AppwriteUser.listSkills().then(setSkills);
-    }, []),
+      listSkills().then(setSkills);
+    }, [listSkills]),
   );
 
   return (
     <SafeAreaProvider>
       <SafeAreaView className="flex-1 bg-slate-900">
         <TimerContainer />
-
         {process.env.NODE_ENV === "development" && <ModalTester />}
-
         <View className="flex">
           {skills.map((skill) => (
             <Animated.View
@@ -43,14 +38,13 @@ export default function Home() {
                   {skill.name} [{AppwriteSkillType[skill.type]}]
                 </ThemedText>
               </View>
-
               <Pressable
                 className="p-1 bg-red-500"
                 onPress={() => {
                   modal.show("confirm", {
                     text: `Delete ${skill.name}?`,
                     confirmAction: () => {
-                      AppwriteUser.deleteSkill(skill.$id).then(() => {
+                      deleteSkill(skill.$id).then(() => {
                         setSkills((prev) =>
                           prev.filter((s) => s.$id !== skill.$id),
                         );
@@ -64,13 +58,7 @@ export default function Home() {
             </Animated.View>
           ))}
         </View>
-        <Pressable
-          onPress={async () => {
-            await account.deleteSession({ sessionId: "current" });
-            await deleteUserInfo();
-            router.replace("/");
-          }}
-        >
+        <Pressable onPress={signOut}>
           <Text className="text-white text-2xl underline">{"[Sign Out]"}</Text>
         </Pressable>
       </SafeAreaView>
