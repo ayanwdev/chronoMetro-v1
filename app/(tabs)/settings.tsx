@@ -9,11 +9,11 @@ const Settings = () => {
   const [user, setUser] = useState<LocalUser | null>(null);
   const [skillName, setSkillName] = useState("");
   const [creating, setCreating] = useState(false);
-  const { getUser, createSkill } = useAccount();
+  const { getLocalUser, createSkill } = useAccount();
 
   useEffect(() => {
-    getUser().then(setUser);
-  }, [getUser]);
+    getLocalUser().then(setUser);
+  }, [getLocalUser]);
 
   const handleCreateSkill = async () => {
     if (!skillName) return console.error("Skill name cannot be empty");
@@ -32,7 +32,7 @@ const Settings = () => {
     <View className="flex p-10">
       <View className="bg-red-400">
         <Text className="text-white text-xl">
-          {"UID: "} {user?.id || "Loading..."}
+          {"UID: "} {user?.$id || "Loading..."}
         </Text>
         <Text className="text-white text-xl">
           {"Name: "} {user?.name || "Loading..."}

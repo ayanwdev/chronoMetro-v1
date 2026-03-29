@@ -3,14 +3,16 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "migrate": "drizzle-kit generate",
     "dev": "expo start",
+    "dev:a": "expo start --android",
     "dev:clean": "expo start --clear",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "web": "expo start --web",
-    "lint": "prettier --write . && expo lint",
-    "build:dev:local": "eas build --platform android --local --profile development"
+    "dev:clean:a": "expo start --android",
+    "build:dev": "eas build --platform android --profile development",
+    "build:dev:local": "eas build --platform android --local --profile development",
+    "lint": "yarn lint:prettier && yarn lint:eslint",
+    "lint:eslint": "expo lint --fix",
+    "lint:prettier": "prettier --write .",
+    "migrate": "drizzle-kit generate"
   },
   "dependencies": {
     "@expo/ui": "~55.0.3",

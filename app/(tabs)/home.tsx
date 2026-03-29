@@ -3,7 +3,8 @@ import { ThemedText } from "@/components/themed-text";
 import TimerContainer from "@/components/timer/timer-container";
 import { useAccount } from "@/hooks/use-account";
 import { useModalManager } from "@/lib/modalManager";
-import { AppwriteSkill, AppwriteSkillType } from "@/types/AppwriteSkill";
+import { AppwriteSkillType } from "@/types/AppwriteSkill";
+import { LocalSkill } from "@/types/LocalSkill";
 import { useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import { Pressable, Text, View } from "react-native";
@@ -11,14 +12,14 @@ import Animated, { BounceInLeft } from "react-native-reanimated";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function Home() {
-  const [skills, setSkills] = useState<AppwriteSkill[]>([]);
+  const [skills, setSkills] = useState<LocalSkill[]>([]);
   const modal = useModalManager();
-  const { listSkills, deleteSkill, signOut } = useAccount();
+  const { listLocalSkills, deleteSkill, signOut } = useAccount();
 
   useFocusEffect(
     useCallback(() => {
-      listSkills().then(setSkills);
-    }, [listSkills]),
+      listLocalSkills().then(setSkills);
+    }, [listLocalSkills]),
   );
 
   return (
@@ -58,9 +59,16 @@ export default function Home() {
             </Animated.View>
           ))}
         </View>
-        <Pressable onPress={signOut}>
-          <Text className="text-white text-2xl underline">{"[Sign Out]"}</Text>
-        </Pressable>
+        <View className="flex items-center">
+          <Pressable onPress={signOut}>
+            <Text className="text-white text-2xl underline">
+              {"[Sign Out]"}
+            </Text>
+          </Pressable>
+          <Pressable onPress={signOut}>
+            <Text className="text-white text-2xl underline">{"[Sync]"}</Text>
+          </Pressable>
+        </View>
       </SafeAreaView>
     </SafeAreaProvider>
   );

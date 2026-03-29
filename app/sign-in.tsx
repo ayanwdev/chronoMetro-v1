@@ -1,20 +1,22 @@
-import { account } from "@/lib/appwrite/client";
-import { useUserManager } from "@/lib/db/userManager";
+import { useAccount } from "@/hooks/use-account";
 import { router } from "expo-router";
 import { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Pressable,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 export default function SignIn() {
-  const { setUserInfo } = useUserManager();
+  const { signIn, signOut } = useAccount();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   async function handleSignIn() {
     try {
-      await account.createEmailPasswordSession({ email, password });
-      const user = await account.get();
-      await setUserInfo({ id: user.$id, name: user.name, email: user.email });
-      router.replace("/(tabs)/home");
+      await signIn(email, password);
     } catch (e) {
       console.error(e);
     }
@@ -50,6 +52,9 @@ export default function SignIn() {
       <TouchableOpacity onPress={() => router.navigate("/sign-up")}>
         <Text className="text-blue-400 text-center">{"Create an account"}</Text>
       </TouchableOpacity>
+      <Pressable onPress={signOut}>
+        <Text className="text-white text-2xl underline">{"[Sign Out]"}</Text>
+      </Pressable>
     </View>
   );
 }
